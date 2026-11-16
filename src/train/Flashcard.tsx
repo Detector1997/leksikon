@@ -23,7 +23,7 @@ export function Flashcard({ entry, autoSpeak, onDecide }: Props) {
   const no = useTransform(x, [-FLING, -24], [1, 0]);
 
   useEffect(() => {
-    if (autoSpeak) speak(entry.en);
+    if (autoSpeak) speak(entry.en, { fromTap: false });
   }, [entry.en, autoSpeak]);
 
   const decide = useCallback(

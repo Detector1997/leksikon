@@ -57,7 +57,7 @@ export function Quiz({ entry, pool, direction, autoSpeak, onResult, onNext }: Pr
   const rightIndex = options.indexOf(answerOf(entry));
 
   useEffect(() => {
-    if (autoSpeak && direction === "en-ru") speak(entry.en);
+    if (autoSpeak && direction === "en-ru") speak(entry.en, { fromTap: false });
   }, [entry.en, direction, autoSpeak]);
 
   const choose = (i: number) => {

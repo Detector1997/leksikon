@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useEffect, useRef } from "react";
 import { TabBar } from "./components/TabBar";
+import { Toast } from "./components/Toast";
 import { flush, useAppState, useLoaded } from "./lib/storage";
 import { routeKey, routeOrder, useRoute } from "./router";
 import { NewSet } from "./screens/NewSet";
@@ -83,6 +84,7 @@ export function App() {
         </motion.main>
       </AnimatePresence>
       {!training && <TabBar route={route} />}
+      <Toast />
     </div>
   );
 }
