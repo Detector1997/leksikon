@@ -38,6 +38,19 @@ function stepFor(mode: TrainMode, w: Word, poolSize: number): Step {
   return "typing";
 }
 
+let lastFirst: string | null = null;
+
+/** Shuffle, and never open two sessions in a row with the same word. */
+export function shuffleNoRepeatStart<T extends { wordId: string }>(refs: T[], rng: () => number = Math.random): T[] {
+  const out = shuffle(refs, rng);
+  if (out.length > 1 && out[0].wordId === lastFirst) {
+    const j = 1 + Math.floor(rng() * (out.length - 1));
+    [out[0], out[j]] = [out[j], out[0]];
+  }
+  lastFirst = out[0]?.wordId ?? null;
+  return out;
+}
+
 function buildQueue(scope: string, mode: TrainMode): Item[] {
   const s = getState();
   const find = (setId: string, wordId: string) => s.sets.find((x) => x.id === setId)?.words.find((w) => w.id === wordId);
@@ -58,6 +71,9 @@ function buildQueue(scope: string, mode: TrainMode): Item[] {
     const words = mode === "mixed" && due.length > 0 ? due : [...due, ...rest];
     refs = words.slice(0, Math.max(MAX, 30)).map((w) => ({ setId: set.id, wordId: w.id }));
   }
+
+  // Which words come up is decided above; the order is new every session, so nothing is learned by position.
+  refs = shuffleNoRepeatStart(refs);
 
   const poolSize = s.sets.reduce((n, x) => n + x.words.length, 0);
   return refs

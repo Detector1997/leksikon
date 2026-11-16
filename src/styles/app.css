@@ -871,7 +871,10 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   gap: 10px;
+  text-align: center;
+  text-wrap: balance;
 }
 .card__hw {
   font-family: var(--display);
@@ -929,6 +932,8 @@
 .prompt {
   padding: 8px 0 18px;
   border-bottom: 1.5px solid var(--ink);
+  text-align: center;
+  text-wrap: balance;
 }
 .prompt__label {
   font-size: 15px;
@@ -960,9 +965,9 @@
   min-height: 58px;
   padding: 10px 16px;
   display: grid;
-  grid-template-columns: 26px 1fr;
+  grid-template-columns: 26px 1fr 26px;
   align-items: center;
-  text-align: left;
+  text-align: center;
   border: 1px solid var(--rule-2);
   border-radius: 2px;
   background: var(--paper);
@@ -974,6 +979,7 @@
   font-family: var(--display);
   font-style: italic;
   color: var(--ink-3);
+  text-align: left;
 }
 .option:active:not(:disabled) {
   background: var(--paper-2);
@@ -1001,6 +1007,7 @@
 }
 .typing__input {
   width: 100%;
+  text-align: center;
   border: 0;
   border-bottom: 2px solid var(--ink);
   border-radius: 0;
@@ -1035,8 +1042,9 @@
 .verdict {
   margin-top: 14px;
   padding: 12px 14px;
-  border-left: 1px solid currentColor;
+  border-top: 1px solid currentColor;
   font-size: 16px;
+  text-align: center;
 }
 .verdict--right {
   color: var(--emerald);
