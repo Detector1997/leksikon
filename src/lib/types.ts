@@ -48,7 +48,7 @@ export interface WordSet {
   title: string;
   level: Level;
   createdAt: number;
-  source: "bank" | "claude";
+  source: "bank" | "claude" | "own";
   words: Word[];
 }
 

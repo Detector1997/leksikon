@@ -32,10 +32,12 @@ export function EntryRow({ entry, index, pick, side }: Props) {
         <span className="entry__hw" lang="en">
           {entry.en}
         </span>{" "}
-        <span className="entry__pos">{entry.pos}</span>{" "}
-        <span className="entry__ipa" lang="en-fonipa">
-          [{entry.ipa}]
-        </span>
+        {entry.pos && <span className="entry__pos">{entry.pos}</span>}{" "}
+        {entry.ipa && (
+          <span className="entry__ipa" lang="en-fonipa">
+            [{entry.ipa}]
+          </span>
+        )}
         <button
           className="entry__speak"
           type="button"
@@ -53,9 +55,11 @@ export function EntryRow({ entry, index, pick, side }: Props) {
         <p className="entry__ru">{entry.ru}</p>
         {side}
       </div>
-      <p className="entry__ex" lang="en">
-        {swungDash(entry.example, entry.en)}
-      </p>
+      {entry.example && (
+        <p className="entry__ex" lang="en">
+          {swungDash(entry.example, entry.en)}
+        </p>
+      )}
     </div>
   );
 

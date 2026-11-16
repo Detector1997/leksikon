@@ -1322,3 +1322,114 @@
   line-height: 1.4;
   border-radius: 2px;
 }
+
+/* ───────── own words ───────── */
+
+.addbar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  margin-top: calc(var(--u) * 3);
+}
+.addbar__label {
+  font-family: var(--display);
+  font-weight: 700;
+}
+select.field {
+  appearance: none;
+  -webkit-appearance: none;
+  padding-right: 34px;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-2) 50%),
+    linear-gradient(135deg, var(--ink-2) 50%, transparent 50%);
+  background-position: calc(100% - 18px) 52%, calc(100% - 13px) 52%;
+  background-size: 5px 5px;
+  background-repeat: no-repeat;
+}
+.addmode {
+  margin-top: 12px;
+}
+.addone .ask {
+  margin-top: calc(var(--u) * 2.5);
+}
+.field--word {
+  font-family: var(--display);
+  font-size: 22px;
+  font-weight: 700;
+}
+.field--area {
+  display: block;
+  margin-top: calc(var(--u) * 2.5);
+  min-height: 210px;
+  resize: vertical;
+  font-size: 17px;
+  line-height: 1.5;
+}
+.editor {
+  display: grid;
+  gap: 10px;
+}
+.editor .plate__cap {
+  flex-wrap: wrap;
+  margin-bottom: 2px;
+}
+.editor .plate__cap .sc {
+  color: var(--ink);
+  font-size: 17px;
+}
+.editor__row {
+  display: grid;
+  gap: 4px;
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.editor__row .field {
+  color: var(--ink);
+}
+.editor__variants {
+  margin: -2px 0 2px;
+}
+.editor .btn {
+  margin-top: 6px;
+}
+.listactions {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px;
+  margin-top: 12px;
+}
+.importlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.importrow {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr) 44px;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule);
+}
+.importrow__word {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+.importrow__word b {
+  font-family: var(--display);
+  font-size: 18px;
+  overflow-wrap: anywhere;
+}
+.importrow__word span {
+  font-size: 14px;
+  color: var(--ink-2);
+}
+.importrow .field {
+  min-height: 42px;
+  padding: 6px 10px;
+  font-size: 16px;
+}
+.addnote {
+  margin-top: calc(var(--u) * 4);
+}

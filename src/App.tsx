@@ -4,6 +4,7 @@ import { TabBar } from "./components/TabBar";
 import { Toast } from "./components/Toast";
 import { flush, useAppState, useLoaded } from "./lib/storage";
 import { routeKey, routeOrder, useRoute } from "./router";
+import { AddWords } from "./screens/AddWords";
 import { NewSet } from "./screens/NewSet";
 import { SetDetail } from "./screens/SetDetail";
 import { Settings } from "./screens/Settings";
@@ -55,6 +56,9 @@ export function App() {
       break;
     case "set":
       screen = <SetDetail id={route.id} />;
+      break;
+    case "add":
+      screen = <AddWords setId={route.setId} />;
       break;
     case "train":
       screen = <Session scope={route.scope} mode={route.mode} />;

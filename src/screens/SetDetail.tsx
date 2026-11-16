@@ -1,4 +1,4 @@
-import { Keyboard, Layers, ListChecks, Pencil, Trash2, X } from "lucide-react";
+import { BookPlus, Keyboard, Layers, ListChecks, Pencil, Trash2, X } from "lucide-react";
 import { useState } from "react";
 import { BoxBar } from "../components/BoxBar";
 import { EntryRow } from "../components/EntryRow";
@@ -71,7 +71,7 @@ export function SetDetail({ id }: { id: string }) {
       )}
       <p className="lede num">
         {set.level} · {set.words.length} {plural(set.words.length, "слово", "слова", "слов")}
-        {set.source === "claude" ? " · подобрано Claude" : ""}
+        {set.source === "claude" ? " · подобрано Claude" : set.source === "own" ? " · свои слова" : ""}
       </p>
 
       <section className="plate" aria-label="Прогресс набора">
@@ -133,6 +133,10 @@ export function SetDetail({ id }: { id: string }) {
       )}
 
       <div className="danger-zone">
+        <a className="link-btn" href={`#/add/${set.id}`}>
+          <BookPlus size={16} strokeWidth={1.5} aria-hidden="true" />
+          Добавить свои слова в этот набор
+        </a>
         <button
           className="link-btn"
           onClick={() => {

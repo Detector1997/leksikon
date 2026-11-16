@@ -4,6 +4,7 @@ import type { TrainMode } from "./lib/types";
 export type Route =
   | { name: "today" }
   | { name: "new" }
+  | { name: "add"; setId?: string }
   | { name: "set"; id: string }
   | { name: "train"; scope: string; mode: TrainMode }
   | { name: "tracker" }
@@ -16,6 +17,8 @@ export function parse(hash: string): Route {
   switch (parts[0]) {
     case "new":
       return { name: "new" };
+    case "add":
+      return { name: "add", setId: parts[1] };
     case "set":
       return parts[1] ? { name: "set", id: parts[1] } : { name: "today" };
     case "train": {
@@ -58,13 +61,15 @@ export function goBack(fallback = "/"): void {
 
 /** Order of top-level screens, so a page passes left or right like turning forward or back. */
 export function routeOrder(r: Route): number {
-  return { today: 0, set: 0.5, new: 1, tracker: 2, settings: 3, train: 4 }[r.name];
+  return { today: 0, set: 0.5, new: 1, add: 1.5, tracker: 2, settings: 3, train: 4 }[r.name];
 }
 
 export function routeKey(r: Route): string {
   switch (r.name) {
     case "set":
       return `set:${r.id}`;
+    case "add":
+      return `add:${r.setId ?? ""}`;
     case "train":
       return `train:${r.scope}:${r.mode}`;
     default:

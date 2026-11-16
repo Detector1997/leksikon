@@ -1,4 +1,4 @@
-import { RefreshCw, Sparkles } from "lucide-react";
+import { BookPlus, RefreshCw, Sparkles } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { EntryRow } from "../components/EntryRow";
 import { Head } from "../components/Head";
@@ -187,6 +187,10 @@ export function NewSet() {
       <Head left={first || "Подбор"} right={last || level} />
       <h1 className="title">Выбери слова</h1>
           <p className="lede">Отметь те, что хочешь выучить. Остальные можно заменить.</p>
+      <a className="link-btn" href="#/add">
+        <BookPlus size={16} strokeWidth={1.5} aria-hidden="true" />
+        Добавить свои слова
+      </a>
 
           <div className="chips" role="group" aria-label="Тема">
             <button className="chip" aria-pressed={topic === null} onClick={() => setTopic(null)}>

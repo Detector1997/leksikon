@@ -72,7 +72,7 @@ export function Flashcard({ entry, autoSpeak, onDecide }: Props) {
           <div className="card__inner" data-flipped={flipped}>
             <div className="card__face" aria-hidden={flipped}>
               <div className="card__head">
-                <span className="sc">{entry.level} · {entry.pos}</span>
+                <span className="sc">{entry.pos ? `${entry.level} · ${entry.pos}` : entry.level}</span>
                 <button
                   className="icon-btn"
                   type="button"
@@ -88,19 +88,19 @@ export function Flashcard({ entry, autoSpeak, onDecide }: Props) {
               </div>
               <div className="card__center">
                 <div className="card__hw" lang="en">{entry.en}</div>
-                <div className="card__ipa" lang="en-fonipa">[{entry.ipa}]</div>
+                {entry.ipa && <div className="card__ipa" lang="en-fonipa">[{entry.ipa}]</div>}
               </div>
               <p className="card__hint">Нажми, чтобы перевернуть</p>
             </div>
             <div className="card__face card__face--back" aria-hidden={!flipped}>
               <div className="card__head">
                 <span lang="en">{entry.en}</span>
-                <span lang="en-fonipa">[{entry.ipa}]</span>
+                {entry.ipa && <span lang="en-fonipa">[{entry.ipa}]</span>}
               </div>
               <div className="card__center">
                 <div className="card__ru">{entry.ru}</div>
-                <p className="card__ex" lang="en">{swungDash(entry.example, entry.en)}</p>
-                <p className="card__exru">{entry.exampleRu}</p>
+                {entry.example && <p className="card__ex" lang="en">{swungDash(entry.example, entry.en)}</p>}
+                {entry.exampleRu && <p className="card__exru">{entry.exampleRu}</p>}
               </div>
               <p className="card__hint">Свайп вправо — помню, влево — нет</p>
             </div>

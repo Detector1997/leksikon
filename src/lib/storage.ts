@@ -111,6 +111,32 @@ export function createSet(input: {
  * Records an answer. Practising a word that is not due yet counts toward the day,
  * but a correct answer does not promote it early; a wrong one still sends it back to box 0.
  */
+export const OWN_SET_TITLE = "Мои слова";
+
+/**
+ * Add the learner's own words to a set (an existing one, or a new «Мои слова» set).
+ * Words already in that set are skipped. Returns the set id and how many were added.
+ */
+export function addOwnWords(target: string | null, level: Level, entries: Entry[]): { setId: string; added: number } {
+  const now = Date.now();
+  let set = target ? state.sets.find((s) => s.id === target) : undefined;
+  const isNew = !set;
+  if (!set) set = { id: uid(), title: OWN_SET_TITLE, level, createdAt: now, source: "own", words: [] };
+  const have = new Set(set.words.map((w) => norm(w.en)));
+  const fresh = entries
+    .filter((e) => {
+      const k = norm(e.en);
+      if (!k || have.has(k)) return false;
+      have.add(k);
+      return true;
+    })
+    .map((e) => ({ ...e, id: uid(), box: 0 as const, dueAt: now, addedAt: now, right: 0, wrong: 0 }));
+  const updated = { ...set, words: [...set.words, ...fresh] };
+  const sets = isNew ? [updated, ...state.sets] : state.sets.map((s) => (s.id === updated.id ? updated : s));
+  commit({ ...state, sets, days: fresh.length ? logNewWords(state.days, fresh.length, now) : state.days });
+  return { setId: updated.id, added: fresh.length };
+}
+
 export function recordAnswer(setId: string, wordId: string, correct: boolean): void {
   const now = Date.now();
   const sets = state.sets.map((s) =>

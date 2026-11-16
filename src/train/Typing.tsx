@@ -97,10 +97,10 @@ export function Typing({ entry, onResult, onNext }: Props) {
               {verdict === "typo" && "Засчитано, но с опечаткой."}
               {verdict === "wrong" && "Не совсем."}
               <p className="typing__answer">
-                <b lang="en">{entry.en}</b> <span lang="en-fonipa">[{entry.ipa}]</span>
+                <b lang="en">{entry.en}</b> {entry.ipa && <span lang="en-fonipa">[{entry.ipa}]</span>}
               </p>
-              <p className="card__ex" lang="en">{entry.example}</p>
-              <p className="card__exru">{entry.exampleRu}</p>
+              {entry.example && <p className="card__ex" lang="en">{entry.example}</p>}
+              {entry.exampleRu && <p className="card__exru">{entry.exampleRu}</p>}
             </div>
             <button ref={next} type="submit" className="btn btn--block" style={{ marginTop: 14 }}>
               Дальше

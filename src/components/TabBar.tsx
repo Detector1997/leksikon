@@ -3,7 +3,7 @@ import type { Route } from "../router";
 
 const TABS = [
   { href: "#/", label: "Сегодня", Icon: BookOpen, match: ["today", "set"] },
-  { href: "#/new", label: "Подбор", Icon: BookPlus, match: ["new"] },
+  { href: "#/new", label: "Подбор", Icon: BookPlus, match: ["new", "add"] },
   { href: "#/tracker", label: "Трекер", Icon: CalendarDays, match: ["tracker"] },
   { href: "#/settings", label: "Настройки", Icon: SlidersHorizontal, match: ["settings"] },
 ] as const;

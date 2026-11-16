@@ -28,6 +28,49 @@ Choose words that are genuinely useful at the requested CEFR level: common in re
 Mix parts of speech, include a few phrasal verbs or idioms when they fit the topic, and never repeat a word from the excluded list.
 Translations are short and natural Russian; examples are everyday sentences a person would actually say.`;
 
+const DescribedSchema = z.object({
+  words: z.array(WordSchema),
+});
+
+/**
+ * Dictionary entries for words the learner typed themselves: the most common sense,
+ * a short natural example, Russian for both. Keeps the learner's spelling of each headword.
+ */
+export async function describeWords(opts: {
+  apiKey: string;
+  level: Level;
+  words: string[];
+  signal?: AbortSignal;
+}): Promise<Omit<Entry, "level" | "topic">[]> {
+  const { apiKey, level, words, signal } = opts;
+  const client = new Anthropic({ apiKey, dangerouslyAllowBrowser: true, maxRetries: 1, timeout: 90_000 });
+  try {
+    const message = await client.beta.messages.parse(
+      {
+        model: "claude-opus-5-5",
+        max_tokens: 16000,
+        system:
+          "You write short bilingual dictionary entries for a Russian-speaking learner of English. For each given word or phrase, " +
+          "pick its most common everyday sense, give British IPA, a short natural Russian translation, one natural example sentence " +
+          "of 6–14 words that uses the word, and a natural Russian translation of that example. Keep the headword exactly as given, " +
+          "in the same order. If a word is misspelt, describe the intended word but keep the given spelling in `en`.",
+        betas: ["server-side-fallback-2026-07-01"],
+        fallbacks: "default",
+        output_config: { effort: "low", format: betaZodOutputFormat(DescribedSchema) },
+        messages: [{ role: "user", content: `Learner level: ${level}.\nWords:\n${words.join("\n")}` }],
+      },
+      { signal },
+    );
+    if (message.stop_reason === "refusal" || !message.parsed_output) return [];
+    return message.parsed_output.words.map((w) => ({ ...w, ipa: w.ipa.replace(/[/[\]]/g, "").trim() }));
+  } catch (err) {
+    if (err instanceof Anthropic.AuthenticationError || err instanceof Anthropic.PermissionDeniedError) {
+      throw new GenerateError("Ключ Claude не подошёл. Проверь его в настройках.", "auth");
+    }
+    throw err;
+  }
+}
+
 export async function generateWords(opts: {
   apiKey: string;
   level: Level;

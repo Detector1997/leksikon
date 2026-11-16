@@ -87,7 +87,7 @@ export function Quiz({ entry, pool, direction, autoSpeak, onResult, onNext }: Pr
         <div className="prompt__word" lang={direction === "en-ru" ? "en" : "ru"}>
           {direction === "en-ru" ? entry.en : entry.ru}
         </div>
-        {direction === "en-ru" && <p className="prompt__sub" lang="en-fonipa">[{entry.ipa}]</p>}
+        {direction === "en-ru" && entry.ipa && <p className="prompt__sub" lang="en-fonipa">[{entry.ipa}]</p>}
       </div>
       <ul className="options">
         {options.map((o, i) => {
@@ -115,8 +115,8 @@ export function Quiz({ entry, pool, direction, autoSpeak, onResult, onNext }: Pr
           <p>
             <b lang="en">{entry.en}</b> — {entry.ru}
           </p>
-          <p className="card__ex" lang="en">{entry.example}</p>
-          <p className="card__exru">{entry.exampleRu}</p>
+          {entry.example && <p className="card__ex" lang="en">{entry.example}</p>}
+          {entry.exampleRu && <p className="card__exru">{entry.exampleRu}</p>}
           <button ref={nextBtn} className="btn btn--block" style={{ marginTop: 14 }} onClick={onNext}>
             Дальше
           </button>
