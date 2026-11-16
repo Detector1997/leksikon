@@ -1,0 +1,11 @@
+node_modules
+dist
+.DS_Store
+*.local
+
+# Local tooling: holds absolute paths of this Mac
+.claude/settings.local.json
+.codex/
+
+# Design process artefacts: downloaded catalogue images, review screenshots, throwaway sketches
+.impeccable/
