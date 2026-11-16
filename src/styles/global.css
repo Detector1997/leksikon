@@ -1,0 +1,178 @@
+/* Лексикон — a nineteenth-century lexicon page as a working app.
+   Engraving ink on uncoated stock; colour lives only inside double-ruled plates and state. */
+
+:root {
+  --paper: #f2ecdf;
+  --paper-2: #e9e1cf;
+  --paper-3: #ded4bf;
+  --ink: #16130f;
+  --ink-2: #4b4337;
+  --ink-3: #685e4f;
+  --rule: rgba(22, 19, 15, 0.2);
+  --rule-2: rgba(22, 19, 15, 0.42);
+
+  --vermilion: #b5321f;
+  --vermilion-ink: #fbf3e4;
+  --chrome: #c98a0e;
+  --emerald: #2e6b47;
+  --ultramarine: #24489a;
+  --violet: #6b4e8e;
+
+  --box-0: var(--vermilion);
+  --box-1: var(--chrome);
+  --box-2: var(--emerald);
+  --box-3: var(--ultramarine);
+  --box-4: var(--violet);
+
+  --display: "Old Standard TT", "Gentium Book Plus", Georgia, serif;
+  --text: "Gentium Book Plus", "Old Standard TT", Georgia, serif;
+
+  --u: 8px;
+  --gutter: 20px;
+  --measure: 560px;
+  --tabbar-h: 64px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #1a1712;
+    --paper-2: #231f18;
+    --paper-3: #2e2920;
+    --ink: #ede5d3;
+    --ink-2: #c2b8a4;
+    --ink-3: #a0957f;
+    --rule: rgba(237, 229, 211, 0.18);
+    --rule-2: rgba(237, 229, 211, 0.4);
+    --vermilion: #d9543c;
+    --vermilion-ink: #1a1712;
+    --chrome: #dfa63a;
+    --emerald: #5aa77a;
+    --ultramarine: #7b98e3;
+    --violet: #ab90d3;
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --paper: #1a1712;
+  --paper-2: #231f18;
+  --paper-3: #2e2920;
+  --ink: #ede5d3;
+  --ink-2: #c2b8a4;
+  --ink-3: #a0957f;
+  --rule: rgba(237, 229, 211, 0.18);
+  --rule-2: rgba(237, 229, 211, 0.4);
+  --vermilion: #d9543c;
+  --vermilion-ink: #1a1712;
+  --chrome: #dfa63a;
+  --emerald: #5aa77a;
+  --ultramarine: #7b98e3;
+  --violet: #ab90d3;
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--paper);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 17px;
+  line-height: 1.5;
+  font-variant-numeric: lining-nums;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+::selection {
+  background: var(--vermilion);
+  color: var(--vermilion-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--vermilion);
+  outline-offset: 3px;
+}
+
+input,
+textarea {
+  caret-color: var(--vermilion);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-underline-offset: 3px;
+}
+
+.num {
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+.sc {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.08em;
+  font-feature-settings: "smcp", "c2sc";
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
